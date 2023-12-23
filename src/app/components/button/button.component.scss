@@ -1,0 +1,42 @@
+.button {
+  position: relative;
+	background: var(--colorBackgroundTertiary);
+	border-radius: 9999px;
+  border: 0px;
+  font-variation-settings: 'wdth' 75, 'wght' 600;
+  font-size: 12px;
+  padding: 0;
+  cursor: pointer;
+
+  &::before {
+		content: '';
+		position: absolute;
+		display: block;
+		width: 100%; height: 100%;
+		background: rgb(var(--colorBrandAccentRgb));
+		filter: contrast(1.2) brightness(0.8);
+		clip-path: circle(0% at 50% 50%);
+		border-radius: inherit;
+		z-index: 0;
+		opacity: 0;
+		transition: all var(--animDurDefault) var(--cubicBezierPrimary);
+	}
+
+  span {
+    position: relative;
+    display: flex;
+    padding: 10px 20px;
+    color: inherit;
+    font-variation-settings: inherit;
+    z-index: 2;
+  }
+
+	&:hover {
+    color: white;
+
+    &::before {
+			clip-path: circle(100% at 50% 50%);
+			opacity: 1;
+		}
+	}
+}

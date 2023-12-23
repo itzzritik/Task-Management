@@ -1,1 +1,128 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'sass:list';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100..700&display=swap');
+
+@mixin lightScheme {
+	color-scheme: light;
+
+	--colorContentPrimary: #383838;
+	--colorContentSecondary: #666;
+	--colorContentTertiary: #E6E6E6;
+
+	--colorBackgroundPrimary: #FFF;
+	--colorBackgroundSecondary: #DDD;
+	--colorBackgroundTertiary: #AAA;
+}
+@mixin darkScheme {
+	color-scheme: dark;
+
+	--colorContentPrimary: #A1A1A1;
+	--colorContentSecondary: #636363;
+	--colorContentTertiary: #383838;
+
+	--colorBackgroundPrimary: #111;
+	--colorBackgroundSecondary: #222;
+	--colorBackgroundTertiary: #333;
+}
+@mixin systemScheme {
+	@media (prefers-color-scheme: light) {
+		@include lightScheme;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		@include darkScheme;
+	}
+}
+@mixin colors {
+	--colorBrandPrimaryRgb: 63 0 230;
+  --colorBrandSecondaryRgb: 150 44 255;
+  --colorBrandAccentRgb: 127 81 255;
+
+	--colorAlertErrorRGB: 255 65 54;
+	--colorAlertWarningRGB: 255 220 0;
+	--colorAlertSuccessRGB: 46 204 64;
+
+	--colorBorderPrimary: #ABB0BB;
+
+	--gradientBrand: linear-gradient(320deg, rgb(var(--colorBrandPrimaryRgb)), rgb(var(--colorBrandSecondaryRgb)));
+
+	--animDurSlow: 1s;
+	--animDurDefault: 0.6s;
+	--animDurFast: 0.4s;
+	--cubicBezierPrimary: cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+html {
+  @include systemScheme;
+  @include colors;
+
+  * {
+		font-variation-settings: 'wdth' 75, 'wght' 500;
+		font-family: 'Montserrat', sans-serif;
+		box-sizing: border-box;
+	}
+
+  background: var(--colorBackgroundPrimary);
+	scroll-behavior: smooth;
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+  }
+
+  .main {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+html,
+body {
+  width: 100vw;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.shadowRipple {
+	--rippleDuration: var(--animDurDefault);
+	--rippleColor: var(--colorBrandAccentRgb);
+	--rippleShadowColor: var(--colorBackgroundTertiary);
+	--rippleSize: 30px 15px;
+
+	border-radius: inherit;
+	box-shadow: 0 0 var(--rippleSize) rgb(var(--rippleColor) / 0%);
+	transition: box-shadow var(--rippleDuration) linear;
+
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0; left: 0;
+		width: 100%; height: 100%;
+		border-radius: inherit;
+		box-shadow: 0 0 0 2px var(--rippleShadowColor);
+		transition: all var(--animDurDefault) var(--cubicBezierPrimary);
+		z-index: -1;
+	}
+
+	&:hover {
+		&::before {
+			box-shadow: 0 0 0 2px rgb(var(--rippleColor) / 50%);
+		}
+	}
+
+	&:active {
+		transition: 0s !important;
+		box-shadow: 0 0 0 0 rgb(var(--rippleColor) / 50%);
+
+		&::before {
+			box-shadow: 0 0 0 5px rgb(var(--rippleColor) / 50%);
+		}
+	}
+}
