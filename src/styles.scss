@@ -1,4 +1,22 @@
 @use 'sass:list';
+
+$fontAwesomeCDN: 'https://raw.githubusercontent.com/itzzjarvis/Assets/main/fonts/fontAwesome';
+
+@font-face {
+	font-family: FontAwesome;
+	font-style: normal;
+	font-weight: 300;
+	font-display: block;
+	src: url('#{$fontAwesomeCDN}/fa-light-300.woff2') format('woff2');
+}
+@font-face {
+	font-family: FontAwesome;
+	font-style: normal;
+	font-weight: 900;
+	font-display: block;
+	src: url('#{$fontAwesomeCDN}/fa-solid-900.woff2') format('woff2');
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100..700&display=swap');
 
 @mixin lightScheme {
@@ -73,11 +91,6 @@ html {
   input[type="number"] {
     appearance: textfield;
     -moz-appearance: textfield;
-  }
-
-  .main {
-    width: 100%;
-    height: 100%;
   }
 }
 
