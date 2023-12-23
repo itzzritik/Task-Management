@@ -1,8 +1,14 @@
 <main class="main">
   <header class="header">
-    <p>Task Management</p>
-    <app-button (btnClick)="onNewTask()" label="New Task" [isDisabled]="false" />
+    <p>{{title}}</p>
+    <app-button
+      label="New Task"
+      icon="2b"
+      [isDisabled]="false"
+      (onClick)="onNewTask()"
+    />
   </header>
+  <app-modal *ngIf="isModalOpen" (onClose)="closeModal()" />
 </main>
 
 <router-outlet></router-outlet>

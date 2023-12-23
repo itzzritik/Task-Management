@@ -1,5 +1,7 @@
 .button {
   position: relative;
+  display: flex;
+  align-items: center;
 	background: var(--colorBackgroundTertiary);
 	border-radius: 9999px;
   border: 0px;
@@ -22,13 +24,28 @@
 		transition: all var(--animDurDefault) var(--cubicBezierPrimary);
 	}
 
-  span {
+  div {
     position: relative;
     display: flex;
-    padding: 10px 20px;
-    color: inherit;
-    font-variation-settings: inherit;
+    align-items: center;
+    padding: 10px;
     z-index: 2;
+
+    span {
+      letter-spacing: 2px;
+      color: inherit;
+      font-variation-settings: inherit;
+    }
+  }
+
+  &.label {
+    div {
+      padding: 10px 20px;
+
+      app-icon {
+        margin-right: 8px;
+      }
+    }
   }
 
 	&:hover {

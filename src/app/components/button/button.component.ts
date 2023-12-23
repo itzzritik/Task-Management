@@ -1,29 +1,22 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { EIconType, IconComponent } from '../icon/icon.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
 	selector: 'app-button',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, IconComponent],
 	templateUrl: './button.component.html',
 	styleUrls: ['./button.component.scss']
 })
 export class ButtonComponent {
-  public buttonText = '';
-
-	@Input()
-	set label(name: string) {
-		this.buttonText = name.toUpperCase();
-	}
-	get name(): string {
-		return this.buttonText;
-	}
-
-	@Output() btnClick = new EventEmitter();
+	@Input() label?: string = '';
+  @Input() icon?: string = '';
+  @Input() iconType?: keyof typeof EIconType;
 	@Input() isDisabled = false;
+	@Output() onClick = new EventEmitter();
 
-	constructor() {}
-
-	onClick() {
-		this.btnClick.emit();
+	onClickEvent() {
+		this.onClick.emit();
 	}
 }

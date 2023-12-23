@@ -1,6 +1,11 @@
 <button
-	(click)="onClick()"
-	[disabled]="isDisabled"
-	class="button shadowRipple">
-	<span>{{ buttonText }}</span>
+  class="button shadowRipple"
+  [class]="label ? 'label' : ''"
+  [disabled]="isDisabled"
+  (click)="onClickEvent()"
+>
+  <div>
+    <app-icon *ngIf="!!icon" [code]="icon" [type]="iconType" />
+    <span *ngIf="!!label">{{ label }}</span>
+  </div>
 </button>
