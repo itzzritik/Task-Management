@@ -1,8 +1,8 @@
 <div class="modalWrapper">
   <div class="modal">
     <div class="header">
-      <h2>New Task</h2>
-      <button (click)="onCloseEvent()">Close</button>
+      <p>{{ title }}</p>
+      <app-button icon="f00d" (onClick)="onCloseEvent()" />
     </div>
     <div class="content">
       <p>Modal content goes here.</p>
