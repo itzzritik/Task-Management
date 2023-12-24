@@ -34,6 +34,7 @@
     color: inherit;
     font-variation-settings: inherit;
     text-transform: uppercase;
+    user-select: none;
 
     span {
       letter-spacing: 2px;
@@ -51,6 +52,10 @@
         margin-right: 8px;
       }
     }
+  }
+
+  &.disabled {
+    pointer-events: none;
   }
 
   &:hover {

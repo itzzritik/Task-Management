@@ -13,12 +13,9 @@ export class IconComponent {
   @Input() type?: keyof typeof EIconType = 'light';
   @Output() onClick = new EventEmitter();
 
-  constructor() {}
-
   getUnicode() {
 		return unicodeToString(this.code)
 	}
-
 	onClickEvent() {
 		this.onClick.emit();
 	}

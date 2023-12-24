@@ -1,8 +1,9 @@
-<div class="modalWrapper">
+<div class="modalWrapper" [class]="closing ? 'closing' : ''">
+  <div class="backdrop" (click)="onCloseEvent()"></div>
   <div class="modal">
     <div class="header">
-      <p>{{ title }}</p>
-      <app-button icon="f00d" (onClick)="onCloseEvent()" />
+      <p>{{ label }}</p>
+      <app-button icon="f00d" (onClick)="onCloseEvent()" [disabled]="closing" />
     </div>
     <div class="content">
       <p>Modal content goes here.</p>

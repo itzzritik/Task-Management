@@ -13,7 +13,7 @@ export class ButtonComponent {
 	@Input() label?: string = '';
   @Input() icon?: string = '';
   @Input() iconType?: keyof typeof EIconType;
-	@Input() isDisabled = false;
+	@Input() disabled = false;
 	@Output() onClick = new EventEmitter();
 
 	onClickEvent() {

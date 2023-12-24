@@ -9,9 +9,12 @@ import { ButtonComponent } from '../button/button.component';
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent {
-  @Input() title?: string = '';
+  closing: boolean = false;
+  @Input() label?: string = '';
   @Output() onClose = new EventEmitter();
+
   onCloseEvent() {
-		this.onClose.emit();
+    this.closing = true;
+		setTimeout(() => this.onClose.emit(), 250);
 	}
 }
