@@ -9,13 +9,13 @@ import { unicodeToString } from '../../../utils/string';
   styleUrl: './icon.component.scss'
 })
 export class IconComponent {
-  @Input() code: string = '';
+  @Input({
+    required: true,
+    transform: (value: string) => unicodeToString(value)
+  }) code: string = '';
   @Input() type?: keyof typeof EIconType = 'light';
   @Output() onClick = new EventEmitter();
 
-  getUnicode() {
-		return unicodeToString(this.code)
-	}
 	onClickEvent() {
 		this.onClick.emit();
 	}

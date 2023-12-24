@@ -1,0 +1,91 @@
+@mixin raisePlaceholder {
+	p {
+		transform: translate(24px, -14px);
+		scale: 0.75;
+		font-variation-settings: 'wdth' 75, 'wght' 700;
+		color: rgb(var(--colorBrandAccentRgb) / 100%);
+
+
+		&::before {
+			scale: 1;
+		}
+	}
+
+	&.textarea {
+		p {
+			transform: translate(24px, -14px);
+		}
+	}
+}
+
+.textfield {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-radius: 9999px;
+  transition: all 0.2s ease-out;
+  box-shadow: 0 0 0 1px rgb(var(--colorBrandAccentRgb) / 50%);
+  background: var(--colorBackgroundSecondary);
+
+  input {
+    width: 100%;
+    outline: none;
+    border: none;
+    padding: 22px 24px 8px 24px;
+    font-size: 14px;
+		color: rgb(var(--colorContentPrimary));
+		font-variation-settings: 'wdth' 75, 'wght' 300;
+    background: transparent;
+    transition: all 0.2s ease-out;
+  }
+
+  p {
+		position: absolute;
+		left: 0;
+		display: flex;
+		align-items: center;
+		color: var(--colorContentSecondary);
+		transform: translate(12px, 0);
+		transform-origin: 0 50%;
+		font-size: 14px;
+		line-height: 20px;
+		padding: 0 8px;
+    margin: 0;
+		transition: all var(--animDurDefault) var(--cubicBezierPrimary);
+
+		&::before {
+			content: '';
+			position: absolute;
+			left: 0;
+			display: block;
+			width: 100%; height: 50%;
+			scale: 0;
+			z-index: -1;
+			transition: all var(--animDurDefault) var(--cubicBezierPrimary);
+		}
+	}
+
+  &.hasValue {
+		@include raisePlaceholder;
+	}
+
+  &:focus-within {
+		box-shadow: 0 0 0 2px rgb(var(--colorBrandAccentRgb) / 50%);
+		background: var(--colorBackgroundPrimary);
+
+		@include raisePlaceholder;
+
+		&.withIcon {
+			&::before {
+				clip-path: circle(17px at 20px 50%);
+				opacity: 0.8;
+			}
+
+			.icon {
+				color: white;
+				font-weight: 900;
+			}
+		}
+	}
+}

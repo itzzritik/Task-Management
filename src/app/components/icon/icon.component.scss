@@ -18,10 +18,10 @@
 	transition: all 0.4s var(--cubicBezierPrimary);
 
 	&::before {
+		content: attr(data-content);
 		position: absolute;
 		display: block;
 		color: inherit;
-		content: attr(data-content);
 	}
 
 	&.thin {

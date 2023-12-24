@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ButtonComponent } from '../button/button.component';
+import { TextfieldComponent } from '../textfield/textfield.component';
 
 @Component({
   selector: 'app-modal',
   standalone: true,
-  imports: [ButtonComponent],
+  imports: [ButtonComponent, TextfieldComponent],
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss']
 })

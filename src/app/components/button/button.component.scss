@@ -36,17 +36,21 @@
     text-transform: uppercase;
     user-select: none;
 
+    * {
+      color: var(--colorContentPrimary);
+    }
+
     span {
       letter-spacing: 2px;
-      color: inherit;
       font-variation-settings: inherit;
       text-transform: uppercase;
+      margin-right: 2px;
     }
   }
 
   &.label {
     div {
-      padding: 10px 20px;
+      padding: 10px 16px;
 
       app-icon {
         margin-right: 8px;
@@ -59,7 +63,9 @@
   }
 
   &:hover {
-    color: white;
+    * {
+      color: white !important;
+    }
 
     &::before {
       clip-path: circle(100% at 50% 50%);

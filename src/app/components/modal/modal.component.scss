@@ -1,5 +1,6 @@
 .modalWrapper {
   $duration: 0.15s;
+  $width: 450px;
 
   position: fixed;
   top: 0;
@@ -22,7 +23,7 @@
     position: absolute;
     top: 16px;
     right: 0;
-    width: 400px;
+    width: $width;
     height: calc(100% - 32px);
     background: var(--colorBackgroundSecondary);
     display: flex;
@@ -39,14 +40,18 @@
       align-items: center;
       padding: 0 24px;
 
-      .button {
-        background: red !important;
-      }
-
       p {
         font-size: 24px;
+        color: var(--colorContentPrimary);
 			  font-variation-settings: "wdth" 75, "wght" 300;
         user-select: none;
+      }
+    }
+
+    .content {
+      padding: 16px 24px;
+      * {
+        color: var(--colorContentPrimary);
       }
     }
   }
@@ -61,12 +66,12 @@
   }
 
   @keyframes slideIn {
-    0% { translate: 450px; }
+    0% { translate: $width + 50px; }
     100% { translate: -16px; }
   }
   @keyframes slideOut {
     0% { translate: -16px; }
-    100% { translate: 450px; }
+    100% { translate: $width + 50px; }
   }
   @keyframes fadeIn {
     0% { opacity: 0; }
