@@ -9,12 +9,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-modal',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    ButtonComponent,
-    NgSelectModule,
-  ],
+  imports: [CommonModule, ReactiveFormsModule, ButtonComponent, NgSelectModule],
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
 })
@@ -32,6 +27,12 @@ export class ModalComponent {
   @Input() label?: string = '';
   @Output() onClose = new EventEmitter();
 
+  isValidField(field: string) {
+    return (
+      this.activeTask.get(field)?.invalid &&
+      (this.activeTask.get(field)?.dirty || this.activeTask.get(field)?.touched)
+    );
+  }
   onCloseEvent() {
     this.closing = true;
     setTimeout(() => this.onClose.emit(), 250);

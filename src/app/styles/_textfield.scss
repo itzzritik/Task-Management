@@ -52,6 +52,7 @@
 		line-height: 20px;
 		padding: 0 8px;
     margin: 0;
+    pointer-events: none;
 		transition: all var(--animDurDefault) var(--cubicBezierPrimary);
 
 		&::before {

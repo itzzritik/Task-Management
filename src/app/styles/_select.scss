@@ -1,0 +1,46 @@
+.ng-select {
+  * {
+    font-size: 14px !important;
+    color: var(--colorContentPrimary) !important;
+  }
+  .ng-select-container {
+    display: flex;
+    align-items: center;
+    height: unset !important;
+    border-radius: 9999px !important;
+    border: none !important;
+    padding: 15px 8px !important;
+    border: none !important;
+    background: var(--colorBackgroundSecondary) !important;
+    box-shadow: 0 0 0 1px rgb(var(--colorBrandAccentRgb) / 50%) !important;
+    transition: background 0.2s ease-out !important;
+
+    .ng-value-container {
+      display: flex;
+      align-items: center;
+
+      .ng-input {
+        top: unset !important;
+        left: 8px !important;
+      }
+    }
+
+    :has(.ng-option) {
+      background: red !important;
+    }
+  }
+
+  &:hover {
+    .ng-select-container {
+      box-shadow: 0 0 0 1px rgb(var(--colorBrandAccentRgb) / 50%) !important;
+    }
+  }
+
+  &.ng-select-opened {
+    .ng-select-container {
+      border-radius: 24px 24px 4px 4px !important;
+      box-shadow: 0 0 0 2px rgb(var(--colorBrandAccentRgb) / 50%) !important;
+      background: var(--colorBackgroundPrimary) !important;
+    }
+  }
+}

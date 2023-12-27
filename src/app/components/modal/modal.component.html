@@ -5,23 +5,33 @@
       <p>{{ label }}</p>
       <app-button icon="f00d" (onClick)="onCloseEvent()" [disabled]="closing" />
     </div>
-    <div class="content">
-      <form [formGroup]="activeTask" (ngSubmit)="onSubmit()">
+    <form class="content" [formGroup]="activeTask" (ngSubmit)="onSubmit()">
+      <div>
         <ng-select
+          formControlName="type"
           [items]="TaskOptions"
           bindLabel="label"
           bindValue="value"
-          formControlName="type"
+          placeholder="Select task type"
         >
         </ng-select>
-        <div class="textfield" [class]="activeTask.get('title')?.value ? 'hasValue' : ''">
+        <div class="alertText" *ngIf="isValidField('type')">
+          Please select a task type.
+        </div>
+      </div>
+
+      <div>
+        <div
+          class="textfield"
+          [class]="activeTask.get('title')?.value ? 'hasValue' : ''"
+        >
           <input formControlName="title" type="text" />
           <p class="placeholder">Task Title</p>
         </div>
-        <div class="alertText" *ngIf="activeTask.get('title')?.invalid && (activeTask.get('title')?.dirty || activeTask.get('title')?.touched)">
+        <div class="alertText" *ngIf="isValidField('title')">
           Please provide a task title.
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   </div>
 </div>
