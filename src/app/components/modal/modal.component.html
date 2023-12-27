@@ -6,7 +6,22 @@
       <app-button icon="f00d" (onClick)="onCloseEvent()" [disabled]="closing" />
     </div>
     <div class="content">
-      <app-textfield />
+      <form [formGroup]="activeTask" (ngSubmit)="onSubmit()">
+        <ng-select
+          [items]="TaskOptions"
+          bindLabel="label"
+          bindValue="value"
+          formControlName="type"
+        >
+        </ng-select>
+        <div class="textfield" [class]="activeTask.get('title')?.value ? 'hasValue' : ''">
+          <input formControlName="title" type="text" />
+          <p class="placeholder">Task Title</p>
+        </div>
+        <div class="alertText" *ngIf="activeTask.get('title')?.invalid && (activeTask.get('title')?.dirty || activeTask.get('title')?.touched)">
+          Please provide a task title.
+        </div>
+      </form>
     </div>
   </div>
 </div>

@@ -1,5 +1,5 @@
 @mixin raisePlaceholder {
-	p {
+	.placeholder {
 		transform: translate(24px, -14px);
 		scale: 0.75;
 		font-variation-settings: 'wdth' 75, 'wght' 700;
@@ -12,7 +12,7 @@
 	}
 
 	&.textarea {
-		p {
+		> .placeholder {
 			transform: translate(24px, -14px);
 		}
 	}
@@ -40,7 +40,7 @@
     transition: all 0.2s ease-out;
   }
 
-  p {
+  .placeholder {
 		position: absolute;
 		left: 0;
 		display: flex;

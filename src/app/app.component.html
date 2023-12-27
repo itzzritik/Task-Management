@@ -3,7 +3,7 @@
     <p>{{ title }}</p>
     <app-button label="New Task" icon="2b" (onClick)="onNewTask()" />
   </header>
-  <app-modal *ngIf="isModalOpen" label="New Task" (onClose)="closeModal()" />
+  <app-modal *ngIf="isModalOpen" label="New Task" [activeTask]="activeTask" (onClose)="closeModal()" />
 </main>
 
 <router-outlet></router-outlet>

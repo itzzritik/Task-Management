@@ -53,6 +53,14 @@
       * {
         color: var(--colorContentPrimary);
       }
+
+      .alertText {
+        margin-top: 8px;
+        margin-left: 16px;
+        font-size: 14px;
+        font-variation-settings: "wdth" 75, "wght" 400;
+        color: rgb(var(--colorAlertErrorRGB));
+      }
     }
   }
 
