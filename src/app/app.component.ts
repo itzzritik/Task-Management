@@ -10,7 +10,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { TASK_TYPE } from '../utils/constants';
+import { MODAL_MODE, TASK, TASK_TYPE } from '../utils/types';
 import { getDefaultEventTime } from '../utils/date';
 
 @Component({
@@ -23,9 +23,10 @@ import { getDefaultEventTime } from '../utils/date';
 export class AppComponent {
   // @ts-ignore
   activeTask: FormGroup;
-  title = 'Task Management';
-  isModalOpen: boolean = false;
+  modalMode: keyof typeof MODAL_MODE = 'closed';
   defaultTime = getDefaultEventTime();
+
+  task: TASK[] = []
 
   constructor(private fb: FormBuilder) { }
 
@@ -40,14 +41,20 @@ export class AppComponent {
   }
 
   onSubmit(): void {
-    this.isModalOpen = true;
+    this.task = [...this.task, this.activeTask.value]
+    this.closeModal();
   }
 
   onNewTask(): void {
-    this.isModalOpen = true;
+    this.modalMode = 'new'
+  }
+
+  onUpdateTask(): void {
+    this.modalMode = 'edit'
   }
 
   closeModal(): void {
-    this.isModalOpen = false;
+    this.modalMode = 'closed'
+    this.activeTask.reset();
   }
 }

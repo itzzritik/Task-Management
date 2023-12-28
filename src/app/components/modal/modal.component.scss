@@ -66,6 +66,17 @@
         font-variation-settings: "wdth" 75, "wght" 400;
         color: rgb(var(--colorAlertErrorRGB));
       }
+
+      .controls {
+        margin-top: auto;
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 8px;
+
+        &.new {
+          justify-content: flex-end;
+        }
+      }
     }
   }
 

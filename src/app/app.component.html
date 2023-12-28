@@ -1,9 +1,9 @@
 <main class="main">
   <header class="header">
-    <p>{{ title }}</p>
+    <p>Task Management</p>
     <app-button label="New Task" icon="2b" (onClick)="onNewTask()" />
   </header>
-  <app-modal *ngIf="isModalOpen" [activeTask]="activeTask" (onSubmit)="onSubmit" (onClose)="closeModal()" />
+  <app-modal *ngIf="modalMode !== 'closed'" [activeTask]="activeTask" [modalMode]="modalMode" (onSubmit)="onSubmit()" (onClose)="closeModal()" />
 </main>
 
 <router-outlet></router-outlet>

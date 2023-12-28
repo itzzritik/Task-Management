@@ -2,10 +2,10 @@
   <div class="backdrop" (click)="onCloseEvent()"></div>
   <div class="modal">
     <div class="header">
-      <p>New {{ getTitle() }}</p>
-      <app-button icon="f00d" (onClick)="onCloseEvent()" [disabled]="closing" />
+      <p>{{ modalMode === 'new' ? 'Create' : 'Update' }} {{ getTitle() }}</p>
+      <app-button class="modalButton" icon="f00d" (onClick)="onCloseEvent()" [disabled]="closing" />
     </div>
-    <form class="content" [formGroup]="activeTask" (ngSubmit)="onSubmit()">
+    <form class="content" [formGroup]="activeTask">
       <div>
         <ng-select
           formControlName="type"
@@ -68,7 +68,10 @@
         </div>
       </div>
 
-      <app-button icon="f00d" label="Create" (onClick)="onSubmitEvent()" [disabled]="closing" />
+      <div class="controls" [class]="modalMode">
+        <app-button *ngIf="modalMode === 'edit'" class="modalButton danger" icon="f2ed" label="Delete" (onClick)="onCloseEvent()" [disabled]="closing" />
+        <app-button class="modalButton" icon="f00c" [label]="modalMode === 'new' ? 'Create' : 'Update'" (onClick)="onSubmitEvent()" [disabled]="!activeTask.valid" />
+      </div>
     </form>
   </div>
 </div>

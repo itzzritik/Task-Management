@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ButtonComponent } from '../button/button.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { TASK_TYPE } from '../../../utils/constants';
+import { MODAL_MODE, TASK_TYPE } from '../../../utils/types';
 import startCase from 'lodash/startCase';
 import { CommonModule } from '@angular/common';
 
@@ -16,6 +16,7 @@ import { CommonModule } from '@angular/common';
 export class ModalComponent {
   // @ts-ignore
   @Input() activeTask: FormGroup;
+  @Input() modalMode: keyof typeof MODAL_MODE = 'closed';
   @Output() onClose = new EventEmitter();
   @Output() onSubmit = new EventEmitter();
 
