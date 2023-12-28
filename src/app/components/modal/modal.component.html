@@ -2,7 +2,7 @@
   <div class="backdrop" (click)="onCloseEvent()"></div>
   <div class="modal">
     <div class="header">
-      <p>{{ label }}</p>
+      <p>New {{ getTitle() }}</p>
       <app-button icon="f00d" (onClick)="onCloseEvent()" [disabled]="closing" />
     </div>
     <form class="content" [formGroup]="activeTask" (ngSubmit)="onSubmit()">
@@ -26,12 +26,49 @@
           [class]="activeTask.get('title')?.value ? 'hasValue' : ''"
         >
           <input formControlName="title" type="text" />
-          <p class="placeholder">Task Title</p>
+          <p class="placeholder">Title</p>
         </div>
         <div class="alertText" *ngIf="isValidField('title')">
-          Please provide a task title.
+          Task title Required (3-100)
         </div>
       </div>
+
+      <div>
+        <div
+          class="textfield textarea"
+          [class]="activeTask.get('desc')?.value ? 'hasValue' : ''"
+        >
+          <textarea formControlName="desc" type="text"></textarea>
+          <p class="placeholder">Description</p>
+        </div>
+        <div class="alertText" *ngIf="isValidField('desc')">
+          Task description Required (15-1000)
+        </div>
+      </div>
+
+      <div *ngIf="activeTask.get('type')?.value !== 'general'">
+        <div
+          class="textfield hasValue">
+          <input formControlName="fromDate" type="datetime-local" />
+          <p class="placeholder">Start Time</p>
+        </div>
+        <div class="alertText" *ngIf="isValidField('fromDate')">
+          Start Time Required
+        </div>
+      </div>
+
+      <div *ngIf="activeTask.get('type')?.value !== 'general'">
+        <div
+          class="textfield hasValue">
+          <input formControlName="toDate" type="datetime-local" />
+          <p class="placeholder">End Time</p>
+        </div>
+        <div class="alertText" *ngIf="isValidField('toDate')">
+          End Time Required
+        </div>
+      </div>
+
+      <app-button icon="f00d" label="Create" (onClick)="onSubmitEvent()" [disabled]="closing" />
     </form>
   </div>
 </div>

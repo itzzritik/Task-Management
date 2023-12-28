@@ -5,15 +5,16 @@
 		font-variation-settings: 'wdth' 75, 'wght' 700;
 		color: rgb(var(--colorBrandAccentRgb) / 100%);
 
-
 		&::before {
 			scale: 1;
 		}
 	}
 
 	&.textarea {
-		> .placeholder {
-			transform: translate(24px, -14px);
+		.placeholder {
+      padding-top: 8px;
+      border-radius: 20px;
+			transform: translate(24px, -5px);
 		}
 	}
 }
@@ -23,12 +24,12 @@
   width: 100%;
   display: flex;
   align-items: center;
-  border-radius: 9999px;
-  transition: all 0.2s ease-out;
+  border-radius: 24px;
+  transition: all var(--animDurDefault) var(--cubicBezierPrimary);
   box-shadow: 0 0 0 1px rgb(var(--colorBrandAccentRgb) / 50%);
   background: var(--colorBackgroundSecondary);
 
-  input {
+  input, textarea {
     width: 100%;
     outline: none;
     border: none;
@@ -37,15 +38,17 @@
 		color: rgb(var(--colorContentPrimary));
 		font-variation-settings: 'wdth' 75, 'wght' 300;
     background: transparent;
-    transition: all 0.2s ease-out;
+    transition: all var(--animDurDefault) var(--cubicBezierPrimary);
   }
 
   .placeholder {
 		position: absolute;
 		left: 0;
+    width: 90%;
 		display: flex;
 		align-items: center;
 		color: var(--colorContentSecondary);
+		background: var(--colorBackgroundSecondary);
 		transform: translate(12px, 0);
 		transform-origin: 0 50%;
 		font-size: 14px;
@@ -67,6 +70,21 @@
 		}
 	}
 
+  &.textarea {
+		input, textarea {
+			height: 150px;
+			padding: 22px 24px 8px 24px;
+			resize: none;
+		}
+
+		.placeholder {
+			top: 0;
+      padding-top: 12px;
+      border-radius: 9999px;
+			transform: translate(12px, 0);
+		}
+	}
+
   &.hasValue {
 		@include raisePlaceholder;
 	}
@@ -76,6 +94,10 @@
 		background: var(--colorBackgroundPrimary);
 
 		@include raisePlaceholder;
+
+    .placeholder {
+      background: var(--colorBackgroundPrimary);
+    }
 
 		&.withIcon {
 			&::before {

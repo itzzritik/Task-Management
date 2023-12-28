@@ -1,0 +1,43 @@
+.ng-dropdown-panel {
+  margin-top: 8px !important;
+  border: none !important;
+  border-radius: 4px 4px 24px 24px !important;
+  background: var(--colorBackgroundSecondary) !important;
+  box-shadow: 0 0 0 2px rgb(var(--colorBrandAccentRgb) / 50%) !important;
+  overflow: hidden;
+  animation: showDropDown 0.2s ease-out both;
+
+  * {
+    background: transparent !important;
+  }
+
+  .ng-option {
+    padding: 12px 18px !important;
+    background: var(--colorBackgroundPrimary) !important;
+
+    &.ng-option-marked {
+      background: var(--colorBackgroundSecondary) !important;
+    }
+    &.ng-option-selected {
+      background: rgb(var(--colorBrandAccentRgb) / 50%) !important;
+    }
+
+    &:first-child {
+      padding-top: 16px !important;
+    }
+    &:last-child {
+      padding-bottom: 16px !important;
+    }
+  }
+
+  @keyframes showDropDown {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+  }
+}

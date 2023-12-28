@@ -14,7 +14,17 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./modal.component.scss'],
 })
 export class ModalComponent {
+  // @ts-ignore
+  @Input() activeTask: FormGroup;
+  @Output() onClose = new EventEmitter();
+  @Output() onSubmit = new EventEmitter();
+
   closing: boolean = false;
+  title = {
+    [TASK_TYPE.general]: 'Task',
+    [TASK_TYPE.meeting]: startCase(TASK_TYPE.meeting),
+    [TASK_TYPE.event]: startCase(TASK_TYPE.event),
+  } as const;
 
   TaskOptions = [
     { value: TASK_TYPE.general, label: startCase(TASK_TYPE.general) },
@@ -22,10 +32,9 @@ export class ModalComponent {
     { value: TASK_TYPE.event, label: startCase(TASK_TYPE.event) },
   ];
 
-  // @ts-ignore
-  @Input() activeTask: FormGroup;
-  @Input() label?: string = '';
-  @Output() onClose = new EventEmitter();
+  getTitle() {
+    return this.title[this.activeTask.get('type')?.value as keyof typeof TASK_TYPE ] ?? 'Task'
+  }
 
   isValidField(field: string) {
     return (
@@ -37,10 +46,7 @@ export class ModalComponent {
     this.closing = true;
     setTimeout(() => this.onClose.emit(), 250);
   }
-  onSubmit() {
-    console.log('Valid?', this.activeTask?.valid);
-    console.log('Name', this.activeTask?.value.name);
-    console.log('Email', this.activeTask?.value.email);
-    console.log('Message', this.activeTask?.value.message);
+  onSubmitEvent() {
+    this.onSubmit.emit()
   }
 }

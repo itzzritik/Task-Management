@@ -11,6 +11,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { TASK_TYPE } from '../utils/constants';
+import { getDefaultEventTime } from '../utils/date';
 
 @Component({
   selector: 'app-root',
@@ -24,15 +25,22 @@ export class AppComponent {
   activeTask: FormGroup;
   title = 'Task Management';
   isModalOpen: boolean = false;
+  defaultTime = getDefaultEventTime();
 
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.activeTask = this.fb.group({
-      type: [TASK_TYPE.general, Validators.required],
-      title: ['', [Validators.required, Validators.minLength(3)]],
-      message: ['', [Validators.required, Validators.minLength(15)]],
+      type: [TASK_TYPE.general, [Validators.required]],
+      title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+      desc: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(1000)]],
+      fromDate: [this.defaultTime[0], [Validators.required]],
+      toDate: [this.defaultTime[1], [Validators.required]],
     });
+  }
+
+  onSubmit(): void {
+    this.isModalOpen = true;
   }
 
   onNewTask(): void {
