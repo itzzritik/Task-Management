@@ -36,6 +36,7 @@ export class AppComponent {
   sortMode = new BehaviorSubject<number>(0);
 
   activeTaskIndex?: number;
+  loading: boolean = true;
   floatHeader: boolean = false;
   showFilter: boolean = false;
   closingFilter: boolean = false;
@@ -45,7 +46,32 @@ export class AppComponent {
   taskList = new BehaviorSubject<TASK[]>(mockTaskList)
   filteredTaskList = combineLatest([this.taskList, this.filter, this.sortMode]).pipe(
     map(([items, filter, sortMode]) => {
-      const clone = cloneDeep(items)
+      let clone = cloneDeep(items)
+
+      if (filter?.type?.length) {
+        clone = clone.filter((v) => filter?.type?.includes(v?.type))
+      }
+
+      if (filter?.title?.length) {
+        clone = clone.filter((v) => v?.title?.includes(filter?.title ?? ''))
+      }
+
+      if (filter?.desc?.length) {
+        clone = clone.filter((v) => v?.desc?.includes(filter?.desc ?? ''))
+      }
+
+      if (filter?.assigned?.length) {
+        clone = clone.filter((v) => filter?.assigned?.includes(v?.assigned))
+      }
+
+      if (filter?.fromDate?.length) {
+        clone = clone.filter((v) => !v?.fromDate || filter?.fromDate === v?.fromDate)
+      }
+
+      if (filter?.toDate?.length) {
+        clone = clone.filter((v) => !v?.toDate || filter?.toDate === v?.toDate)
+      }
+
       if (sortMode !== 0) {
         clone.sort((a, b) => {
           if (sortMode === 1) return a.createDate.localeCompare(b.createDate);
@@ -105,15 +131,31 @@ export class AppComponent {
   ngOnInit(): void {
     this.initActiveTask();
     this.initActiveFilter();
-    this.updateAssignedUsers()
     this.renderer.listen('body', 'scroll', () => {
       if (document.body.scrollTop >= 36) this.floatHeader = true;
       else this.floatHeader = false;
     });
-  }
 
-  updateAssignedUsers() {
+    try {
+      const localFilter = localStorage.getItem('filter');
+      const localSortMode = localStorage.getItem('sortMode');
+      if (localFilter) this.filter.next(JSON.parse(localFilter));
+      if (localSortMode) this.sortMode.next(parseInt(localSortMode));
+    }
+    catch (e) { }
+    finally {
+      setTimeout(() => {
+        this.loading = false;
+      }, 500);
+    }
 
+    this.sortMode.subscribe(sortMode => {
+      localStorage.setItem('sortMode', JSON.stringify(sortMode));
+    });
+
+    this.filter.subscribe(filter => {
+      localStorage.setItem('filter', JSON.stringify(filter));
+    });
   }
 
   getTaskIcon (type: keyof typeof TASK_TYPE) {
@@ -126,7 +168,15 @@ export class AppComponent {
   updateSortMode(mode: number): void {
     this.sortMode.next(mode);
   }
+  clearFilters(): void {
+    this.initActiveFilter();
+    this.applyFilter();
+  }
+  showClear(): boolean {
+    return Object.values(this.activeFilter.value).some((v) => (v != undefined))
+  }
   openFilter(): void {
+    this.activeFilter.patchValue(this.filter.value);
     this.showFilter = true
   }
   closeFilter(): void {

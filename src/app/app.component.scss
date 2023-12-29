@@ -20,6 +20,7 @@
       display: flex;
       align-items: center;
       padding: 64px 48px 24px 48px;
+      gap: 8px;
       transition: all 0.3s ease-out;
 
       > p {
@@ -32,27 +33,8 @@
       }
     }
 
-    .controls {
-      position: relative;
-      width: 100%;
-      height: 64px;
-      padding: 0 48px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 8px;
-      transition: all 0.3s ease-out;
-
-      &::before {
-        content: '';
-        position: absolute;
-        inset: 0 0 0 0;
-        transition: all 0.3s ease-out;
-      }
-
-      .ng-select {
-        width: 300px;
-      }
+    .ng-select {
+      width: 300px;
     }
 
     .backdrop {
@@ -98,6 +80,10 @@
         padding: 24px;
         gap: 8px;
 
+        ng-select {
+          width: 100%;
+        }
+
         .filterDates {
           display: flex;
           gap: 8px;
@@ -117,12 +103,17 @@
           .modalButton {
             position: relative;
             width: auto;
+
+            &.danger {
+              margin-right: auto;
+            }
           }
         }
       }
     }
 
     &.float {
+      box-shadow: 0 16px 16px -16px rgb(0 0 0 / 50%);
       .head {
         padding: 24px 48px 24px 48px;
         background-color: var(--colorBackgroundSecondary);
@@ -130,14 +121,6 @@
         > p {
           font-size: 28px;
           font-variation-settings: "wdth" 75, "wght" 400;
-        }
-      }
-      .controls {
-        box-shadow: 0 16px 16px -16px rgb(0 0 0 / 50%);
-
-        &::before {
-          background-color: var(--colorBackgroundTertiary);
-          opacity: 0.98;
         }
       }
 
@@ -162,7 +145,7 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    padding: 226px 48px 48px 48px;
+    padding: 172px 48px 48px 48px;
 
     .task {
       position: relative;
@@ -185,6 +168,29 @@
         align-items: center;
         font-variation-settings: "wdth" 75, "wght" 400;
       }
+    }
+  }
+
+  .loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--colorBackgroundPrimary);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    > span {
+      width: 60px;
+      height: 60px;
+      border: 4px solid rgb(var(--colorBrandAccentRgb));
+      border-top-color: transparent;
+      border-bottom-color: transparent;
+      border-radius: 9999px;
+      animation: spinner 0.2s linear infinite;
     }
   }
 }
@@ -216,4 +222,8 @@
 @keyframes fadeOut {
   0% { opacity: 1; }
   100% { opacity: 0; }
+}
+@keyframes spinner {
+  0% { rotate: 0deg; }
+  100% { rotate: 180deg; }
 }

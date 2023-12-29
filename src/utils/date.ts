@@ -31,10 +31,18 @@ export const readableDate = (inputDateTime?: string) => {
   return new Intl.DateTimeFormat('en-US', options).format(date);
 };
 
-export const getRandomDateFromPastMonth = () => {
+export const getRandomDateFromPastMonth = (): string => {
   const currentDate = new Date();
   const randomDate = new Date(currentDate);
-  randomDate.setDate(currentDate.getDate() - Math.floor(Math.random() * 30));
+
+  const randomDays = Math.floor(Math.random() * 30);
+  randomDate.setDate(currentDate.getDate() - randomDays);
+
+  const randomHours = Math.floor(Math.random() * 24);
+  const randomMinutes = Math.floor(Math.random() * 60);
+  const randomSeconds = Math.floor(Math.random() * 60);
+
+  randomDate.setHours(randomHours, randomMinutes, randomSeconds);
 
   return randomDate.toISOString();
-}
+};

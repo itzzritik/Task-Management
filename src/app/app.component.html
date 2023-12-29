@@ -2,9 +2,6 @@
   <header class="header" [class]="(floatHeader ? 'float' : '') + (closingFilter ? ' closing' : '')">
     <div class="head">
       <p>Task Management</p>
-      <app-button label="New Task" icon="2b" (onClick)="onNewTask()" />
-    </div>
-    <div class="controls">
       <app-button label="Filter" icon="e17c" (onClick)="openFilter()" />
       <ng-select
         class="filterSelect"
@@ -16,11 +13,12 @@
         [ngModel]="sortMode | async"
         (ngModelChange)="updateSortMode($event)"
       />
+      <app-button label="New Task" icon="2b" (onClick)="onNewTask()" />
     </div>
     <div *ngIf="showFilter" class="backdrop" (click)="closeFilter()"></div>
-    <div *ngIf="showFilter" class="filterModal" (ngSubmit)="applyFilter()">
+    <div *ngIf="showFilter" class="filterModal">
       <div class="filterHeader">Filter</div>
-      <form class="filterContent" [formGroup]="activeFilter">
+      <form class="filterContent" [formGroup]="activeFilter" (ngSubmit)="applyFilter()">
         <div>
           <ng-select
             formControlName="type"
@@ -84,6 +82,7 @@
         </div>
 
         <div class="filterControls">
+          <app-button *ngIf="showClear()" class="modalButton danger" icon="e2b4" label="Clear" (onClick)="clearFilters()" />
           <app-button class="modalButton" type="submit" icon="f00c" label="Apply" />
         </div>
       </form>
@@ -95,8 +94,8 @@
       <p>{{ task.title }}</p>
       <p>{{ task.assigned }}</p>
       <p>{{ task.desc }}</p>
-      <p>{{ getReadableDate(task?.createDate) }}</p>
-      <p>{{ getReadableDate(task?.updateDate) }}</p>
+      <p>{{ getReadableDate(task?.fromDate) }}</p>
+      <p>{{ getReadableDate(task?.toDate) }}</p>
     </div>
   </section>
   <app-modal
@@ -106,6 +105,9 @@
     (onSubmit)="onSubmit()"
     (onClose)="closeModal()"
   />
+  <div *ngIf="loading" class="loading">
+    <span></span>
+  </div>
 </main>
 
 <router-outlet></router-outlet>
