@@ -1,16 +1,33 @@
 <main class="main">
   <header class="header" [class]="floatHeader ? 'float' : ''">
-    <p>Task Management</p>
-    <app-button label="New Task" icon="2b" (onClick)="onNewTask()" />
+    <div class="head">
+      <p>Task Management</p>
+      <app-button label="New Task" icon="2b" (onClick)="onNewTask()" />
+    </div>
+    <div class="controls">
+      <app-button label="Filter" icon="e17c" (onClick)="toggleFilter()" />
+      <ng-select
+        class="filterSelect"
+        [items]="SortOptions"
+        bindLabel="label"
+        bindValue="value"
+        placeholder="Select sort mode"
+        [clearable]="false"
+        [(ngModel)]="sortMode"
+      />
+    </div>
+    <div *ngIf="showFilter" class="filter">
+
+    </div>
   </header>
   <section class="tasks">
-    <div class="task" *ngFor="let task of taskList; let i = index" (click)="onEditTask(task, i)">
+    <div class="task" *ngFor="let task of getFilteredTasks(); let i = index" (click)="onEditTask(task, i)">
       <app-icon class="taskIcon" [code]="getTaskIcon(task.type)" type="duotone" />
       <p>{{ task.title }}</p>
       <p>{{ task.assigned }}</p>
       <p>{{ task.desc }}</p>
-      <p>{{ getReadableDate(task?.fromDate) }}</p>
-      <p>{{ getReadableDate(task?.toDate) }}</p>
+      <p>{{ getReadableDate(task?.createDate) }}</p>
+      <p>{{ getReadableDate(task?.updateDate) }}</p>
     </div>
   </section>
   <app-modal

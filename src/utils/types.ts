@@ -9,6 +9,13 @@ export enum MODAL_MODE {
   edit = 'edit',
   closed = 'closed'
 }
+export enum SORT_MODE {
+  none = 'No Sort',
+  createAsc = 'Create Date Ascending',
+  createDsc = 'Create Date Descending',
+  updateAsc = 'Update Date Ascending',
+  updateDsc = 'Update Date Descending',
+}
 
 export type TASK = {
   type: keyof typeof TASK_TYPE,
@@ -17,6 +24,8 @@ export type TASK = {
   assigned: string,
   fromDate?: string,
   toDate?: string,
+  createDate: string,
+  updateDate: string,
 }
 
 export const TASK_ICON = {

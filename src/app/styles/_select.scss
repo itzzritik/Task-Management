@@ -7,13 +7,13 @@
     display: flex;
     align-items: center;
     height: unset !important;
-    border-radius: 9999px !important;
+    border-radius: 24px !important;
     border: none !important;
     padding: 15px 8px !important;
     border: none !important;
     background: var(--colorBackgroundSecondary) !important;
-    box-shadow: 0 0 0 1px rgb(var(--colorBrandAccentRgb) / 50%) !important;
-    transition: background 0.2s ease-out !important;
+    box-shadow: 0 0 0 2px var(--colorBackgroundTertiary) !important;
+    transition: all 0.2s ease-out !important;
 
     .ng-value-container {
       display: flex;
@@ -32,15 +32,96 @@
 
   &:hover {
     .ng-select-container {
-      box-shadow: 0 0 0 1px rgb(var(--colorBrandAccentRgb) / 50%) !important;
+      box-shadow: 0 0 0 2px rgb(var(--colorBrandAccentRgb) / 50%) !important;
     }
   }
 
   &.ng-select-opened {
     .ng-select-container {
       border-radius: 24px 24px 4px 4px !important;
-      box-shadow: 0 0 0 2px rgb(var(--colorBrandAccentRgb) / 50%) !important;
+      box-shadow: 0 0 0 3px rgb(var(--colorBrandAccentRgb) / 50%) !important;
       background: var(--colorBackgroundPrimary) !important;
     }
+  }
+}
+
+.ng-dropdown-panel {
+  margin-top: 10px !important;
+  border: none !important;
+  border-radius: 4px 4px 24px 24px !important;
+  background: var(--colorBackgroundSecondary) !important;
+  box-shadow: 0 0 0 3px rgb(var(--colorBrandAccentRgb) / 50%) !important;
+  overflow: hidden;
+  animation: showDropDown 0.2s ease-out both;
+
+  * {
+    background: transparent !important;
+  }
+
+  .ng-option {
+    padding: 12px 18px !important;
+    background: var(--colorBackgroundPrimary) !important;
+
+    &.ng-option-marked {
+      background: var(--colorBackgroundSecondary) !important;
+    }
+    &.ng-option-selected {
+      background: rgb(var(--colorBrandAccentRgb) / 50%) !important;
+    }
+
+    &:first-child {
+      padding-top: 16px !important;
+    }
+    &:last-child {
+      padding-bottom: 16px !important;
+    }
+  }
+
+  @keyframes showDropDown {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+  }
+}
+
+.modalButton {
+  &.danger {
+    .button {
+      --rippleColor: var(--colorAlertErrorRGB);
+      background: rgb(var(--colorAlertErrorRGB) / 0.2) !important;
+
+      &::before {
+        background: rgb(var(--colorAlertErrorRGB)) !important;
+      }
+    }
+  }
+}
+
+.modalIcon .icon {
+  font-size: 24px !important;
+}
+.taskIcon {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  background: rgb(var(--colorBrandAccentRgb) / 50%);
+  border-radius: 9999px;
+
+  .icon {
+    font-size: 20px !important;
+  }
+}
+
+.filterSelect {
+  .ng-select-container {
+    padding: 9px 8px !important;
+    box-shadow: 0 0 0 1px var(--colorBackgroundTertiary) !important;
   }
 }

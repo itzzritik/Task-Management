@@ -1,6 +1,7 @@
+import { getRandomDateFromPastMonth } from './date';
 import { TASK } from './types';
 
-export const mockTaskList: TASK[] = [
+export const mockTaskList = [
   {
     type: 'general',
     title: 'Quarterly Review Meeting',
@@ -271,4 +272,11 @@ export const mockTaskList: TASK[] = [
     fromDate: '2024-03-05T09:00',
     toDate: '2024-03-05T12:00'
   }
-];
+] as TASK[];
+
+mockTaskList.forEach((task) => {
+  // @ts-ignore
+  task.createDate = getRandomDateFromPastMonth();
+  // @ts-ignore
+  task.updateDate = getRandomDateFromPastMonth();
+})

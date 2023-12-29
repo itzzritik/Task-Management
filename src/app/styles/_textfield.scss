@@ -26,7 +26,7 @@
   align-items: center;
   border-radius: 24px;
   transition: all var(--animDurDefault) var(--cubicBezierPrimary);
-  box-shadow: 0 0 0 1px rgb(var(--colorBrandAccentRgb) / 50%);
+  box-shadow: 0 0 0 2px var(--colorBackgroundTertiary);
   background: var(--colorBackgroundSecondary);
 
   input, textarea {
@@ -89,8 +89,11 @@
 		@include raisePlaceholder;
 	}
 
+  &:hover {
+    box-shadow: 0 0 0 2px rgb(var(--colorBrandAccentRgb) / 50%);
+  }
   &:focus-within {
-		box-shadow: 0 0 0 2px rgb(var(--colorBrandAccentRgb) / 50%);
+		box-shadow: 0 0 0 3px rgb(var(--colorBrandAccentRgb) / 50%);
 		background: var(--colorBackgroundPrimary);
 
 		@include raisePlaceholder;
