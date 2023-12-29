@@ -1,4 +1,4 @@
-import { Component, HostListener, Renderer2 } from '@angular/core';
+import { Component, HostListener, Renderer2, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { ButtonComponent } from './components/button/button.component';
@@ -10,13 +10,15 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MODAL_MODE, SORT_MODE, TASK, TASK_ICON, TASK_TYPE } from '../utils/types';
+import { FILTER, MODAL_MODE, SORT_MODE, TASK, TASK_ICON, TASK_TYPE } from '../utils/types';
 import { getDefaultEventTime, readableDate } from '../utils/date';
 import { mockTaskList } from '../utils/mockData';
 import { IconComponent } from './components/icon/icon.component';
 import cloneDeep from 'lodash/cloneDeep';
 import startCase from 'lodash/startCase';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { BehaviorSubject, combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -30,15 +32,39 @@ export class AppComponent {
   activeTask: FormGroup;
   // @ts-ignore
   activeFilter: FormGroup;
+  filter = new BehaviorSubject<FILTER>({});
+  sortMode = new BehaviorSubject<number>(0);
 
   activeTaskIndex?: number;
   floatHeader: boolean = false;
   showFilter: boolean = false;
-  sortMode: number = 0;
+  closingFilter: boolean = false;
   modalMode: keyof typeof MODAL_MODE = 'closed';
   defaultTime = getDefaultEventTime();
 
-  taskList: TASK[] = []
+  taskList = new BehaviorSubject<TASK[]>(mockTaskList)
+  filteredTaskList = combineLatest([this.taskList, this.filter, this.sortMode]).pipe(
+    map(([items, filter, sortMode]) => {
+      const clone = cloneDeep(items)
+      if (sortMode !== 0) {
+        clone.sort((a, b) => {
+          if (sortMode === 1) return a.createDate.localeCompare(b.createDate);
+          if (sortMode === 2) return b.createDate.localeCompare(a.createDate);
+          if (sortMode === 3) return a.updateDate.localeCompare(b.updateDate);
+          return b.updateDate.localeCompare(a.updateDate);
+        });
+      }
+
+      return clone;
+    })
+  );
+  AssignedUsers = combineLatest([this.taskList]).pipe(
+    map(([items]) => {
+      return [...new Set(items.map((task) => task.assigned))].map((user) => ({
+        value: user, label: startCase(user)
+      }));
+    })
+  );
 
   SortOptions = [
     { value: 0, label: 'No Sort' },
@@ -79,11 +105,15 @@ export class AppComponent {
   ngOnInit(): void {
     this.initActiveTask();
     this.initActiveFilter();
-    this.taskList = mockTaskList
+    this.updateAssignedUsers()
     this.renderer.listen('body', 'scroll', () => {
-      if (document.body.scrollTop >= 50) this.floatHeader = true;
+      if (document.body.scrollTop >= 36) this.floatHeader = true;
       else this.floatHeader = false;
     });
+  }
+
+  updateAssignedUsers() {
+
   }
 
   getTaskIcon (type: keyof typeof TASK_TYPE) {
@@ -92,54 +122,54 @@ export class AppComponent {
   getReadableDate (date?: string) {
     return readableDate(date)
   }
-  getFilteredTasks () {
-    const taskList = cloneDeep(this.taskList);
 
-    if (this.sortMode !== 0) {
-      taskList.sort((a, b) => {
-        if (this.sortMode === 1) return a.createDate.localeCompare(b.createDate);
-        if (this.sortMode === 2) return b.createDate.localeCompare(a.createDate);
-        if (this.sortMode === 3) return a.updateDate.localeCompare(b.updateDate);
-        return b.updateDate.localeCompare(a.updateDate);
-      });
-    }
-
-    return taskList
+  updateSortMode(mode: number): void {
+    this.sortMode.next(mode);
   }
-
-  toggleFilter(): void {
-    this.showFilter = !this.showFilter
+  openFilter(): void {
+    this.showFilter = true
+  }
+  closeFilter(): void {
+    this.closingFilter = true;
+    setTimeout(() => {
+      this.showFilter = false;
+      this.closingFilter = false;
+      this.initActiveFilter();
+    }, 250);
+  }
+  applyFilter(): void {
+    this.filter.next(cloneDeep(this.activeFilter.value))
+    this.closeFilter()
   }
 
   onNewTask(): void {
     this.modalMode = 'new'
   }
-
   onEditTask(activeTask: TASK, i: number): void {
     this.modalMode = 'edit'
     this.activeTaskIndex = i;
     this.activeTask.patchValue(activeTask);
   }
-
   onSubmit(): void {
     if (this.modalMode === 'new') {
-      this.taskList = [
+      this.taskList.next([
         {
           ...this.activeTask.value,
           createDate: new Date().toISOString(),
           updateDate: new Date().toISOString(),
         },
-        ...this.taskList,
-      ];
+        ...this.taskList.getValue(),
+      ]);
     } else if (this.modalMode === 'edit' && this.activeTaskIndex != undefined) {
-      this.taskList[this.activeTaskIndex] = {
+      const list = this.taskList.getValue()
+      list[this.activeTaskIndex] = {
         ...this.activeTask.value,
         updateDate: new Date().toISOString(),
       };
+      this.taskList.next(list)
     }
     this.closeModal();
   }
-
   closeModal(): void {
     this.modalMode = 'closed'
     this.activeTaskIndex = undefined

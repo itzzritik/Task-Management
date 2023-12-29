@@ -1,7 +1,8 @@
 <button
   class="button shadowRipple"
-  [class]="(label ? 'label ' : '') + (disabled ? 'disabled ' : '')"
+  [class]="(label ? 'label ' : '') + (disabled ? ' disabled ' : '')"
   [disabled]="disabled"
+  [type]="type"
   (click)="onClickEvent()"
 >
   <div>

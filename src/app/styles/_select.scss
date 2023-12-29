@@ -67,9 +67,7 @@
       }
       &.ng-has-value {
         .ng-value-container {
-          height: 26px !important;
-          padding-top: 0 !important;
-          padding-left: 8px !important;
+          padding: 2px 0 2px 8px !important;
           gap: 12px;
 
           .ng-value {
@@ -77,16 +75,22 @@
             flex-direction: row-reverse;
             margin: 0;
             border-radius: 9999px;
-            box-shadow: 0 0 0 2px var(--colorBackgroundTertiary) !important;
             background: var(--colorBackgroundTertiary) !important;
+            overflow: hidden;
 
             .ng-value-icon {
               border-right: none;
               border-left: 1px solid var(--colorContentSecondary);
-              padding: 2px 8px !important;
+              padding: 2px 8px 2px 6px !important;
+              transition: all 0.1s ease-out !important;
+
+              &:hover {
+                border-left: 1px solid rgb(var(--colorBrandAccentRgb) / 30%);
+                background: rgb(var(--colorBrandAccentRgb) / 30%);
+              }
             }
             .ng-value-label {
-              padding: 2px 12px !important;
+              padding: 2px 8px !important;
             }
           }
         }

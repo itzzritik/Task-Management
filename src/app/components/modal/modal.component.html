@@ -6,7 +6,7 @@
       <p>{{ modalMode === 'new' ? 'Create' : 'Update' }} {{ getTitle() }}</p>
       <app-button class="modalButton" icon="f00d" (onClick)="onCloseEvent()" [disabled]="closing" />
     </div>
-    <form class="content" [formGroup]="activeTask">
+    <form class="content" [formGroup]="activeTask" (ngSubmit)="onSubmitEvent()">
       <div>
         <ng-select
           formControlName="type"
@@ -84,7 +84,7 @@
 
       <div class="controls" [class]="modalMode">
         <app-button *ngIf="modalMode === 'edit'" class="modalButton danger" icon="e2b4" label="Delete" (onClick)="onCloseEvent()" [disabled]="closing" />
-        <app-button class="modalButton" icon="f00c" [label]="modalMode === 'new' ? 'Create' : 'Update'" (onClick)="onSubmitEvent()" [disabled]="!activeTask.valid" />
+        <app-button class="modalButton" type="submit" icon="f00c" [label]="modalMode === 'new' ? 'Create' : 'Update'"  [disabled]="!activeTask.valid" />
       </div>
     </form>
   </div>

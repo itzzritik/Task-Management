@@ -77,7 +77,7 @@
       background: var(--colorBackgroundTertiary);
       box-shadow: 0 16px 16px -16px rgb(0 0 0 / 50%);
       transition: all 0.3s ease-out;
-      animation: showDropDown 0.2s ease-out both;
+      animation: showDropDown $duration ease-out forwards;
       z-index: 11;
 
       > .filterHeader {
@@ -145,6 +145,15 @@
         bottom: -453px;
       }
     }
+
+    &.closing {
+      .backdrop {
+        animation: fadeOut $duration ease-out forwards;
+      }
+      .filterModal {
+        animation: hideDropDown $duration ease-out forwards;
+      }
+    }
   }
 
   .tasks {
@@ -153,7 +162,7 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    padding: 250px 48px 48px 48px;
+    padding: 226px 48px 48px 48px;
 
     .task {
       position: relative;
@@ -188,6 +197,16 @@
   100% {
     opacity: 1;
     transform: translateY(0px);
+  }
+}
+@keyframes hideDropDown {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px);
   }
 }
 @keyframes fadeIn {

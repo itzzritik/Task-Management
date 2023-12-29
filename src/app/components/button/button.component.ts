@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 })
 export class ButtonComponent {
 	@Input() label?: string = '';
+	@Input() type?: string = 'button';
   @Input() icon?: string = '';
   @Input() iconType?: keyof typeof EIconType;
 	@Input() disabled = false;

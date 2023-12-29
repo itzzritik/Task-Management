@@ -28,6 +28,15 @@ export type TASK = {
   updateDate: string,
 }
 
+export type FILTER = {
+  type?: Array<keyof typeof TASK_TYPE>,
+  title?: string,
+  desc?: string,
+  assigned?: string[],
+  fromDate?: string,
+  toDate?: string,
+}
+
 export const TASK_ICON = {
   [TASK_TYPE.general]: 'e1ff',
   [TASK_TYPE.meeting]: 'f0c0',
