@@ -16,8 +16,74 @@
         [(ngModel)]="sortMode"
       />
     </div>
-    <div *ngIf="showFilter" class="filter">
+    <div *ngIf="showFilter" class="backdrop" (click)="toggleFilter()"></div>
+    <div *ngIf="showFilter" class="filterModal">
+      <div class="filterHeader">Filter</div>
+      <form class="filterContent" [formGroup]="activeFilter">
+        <div>
+          <ng-select
+            formControlName="type"
+            [items]="TaskOptions"
+            bindLabel="label"
+            bindValue="value"
+            placeholder="Select task type"
+            [multiple]="true"
+            [closeOnSelect]="false"
+          />
+        </div>
 
+        <div>
+          <div
+            class="textfield"
+            [class]="activeFilter.get('title')?.value ? 'hasValue' : ''"
+          >
+            <input formControlName="title" type="text" />
+            <p class="placeholder">Title</p>
+          </div>
+        </div>
+
+        <div>
+          <div
+            class="textfield"
+            [class]="activeFilter.get('desc')?.value ? 'hasValue' : ''"
+          >
+            <input formControlName="desc" type="text" />
+            <p class="placeholder">Description</p>
+          </div>
+        </div>
+
+        <div>
+          <div
+            class="textfield"
+            [class]="activeFilter.get('assigned')?.value ? 'hasValue' : ''"
+          >
+            <input formControlName="assigned" type="text" />
+            <p class="placeholder">Assigned To</p>
+          </div>
+        </div>
+
+        <div class="filterDates">
+          <div>
+            <div
+              class="textfield hasValue">
+              <input formControlName="fromDate" type="datetime-local" />
+              <p class="placeholder">Start Time</p>
+            </div>
+          </div>
+
+          <div>
+            <div
+              class="textfield hasValue">
+              <input formControlName="toDate" type="datetime-local" />
+              <p class="placeholder">End Time</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="filterControls">
+          <app-button class="modalButton" icon="f00c" label="Apply" />
+        </div>
+      </form>
     </div>
   </header>
   <section class="tasks">

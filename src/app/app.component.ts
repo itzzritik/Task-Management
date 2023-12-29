@@ -28,6 +28,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
 export class AppComponent {
   // @ts-ignore
   activeTask: FormGroup;
+  // @ts-ignore
+  activeFilter: FormGroup;
+
   activeTaskIndex?: number;
   floatHeader: boolean = false;
   showFilter: boolean = false;
@@ -44,10 +47,15 @@ export class AppComponent {
     { value: 3, label: 'Update Date Ascending' },
     { value: 4, label: 'Update Date Descending' },
   ];
+  TaskOptions = [
+    { value: TASK_TYPE.general, label: startCase(TASK_TYPE.general) },
+    { value: TASK_TYPE.meeting, label: startCase(TASK_TYPE.meeting) },
+    { value: TASK_TYPE.event, label: startCase(TASK_TYPE.event) },
+  ];
 
   constructor(private fb: FormBuilder, private renderer: Renderer2) { }
 
-  initForm () {
+  initActiveTask () {
     this.activeTask = this.fb.group({
       type: [TASK_TYPE.general, [Validators.required]],
       title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
@@ -57,9 +65,20 @@ export class AppComponent {
       toDate: [this.defaultTime[1], [Validators.required]],
     });
   }
+  initActiveFilter () {
+    this.activeFilter = this.fb.group({
+      type: [undefined],
+      title: [undefined],
+      desc: [undefined],
+      assigned: [undefined],
+      fromDate: [undefined],
+      toDate: [undefined],
+    });
+  }
 
   ngOnInit(): void {
-    this.initForm();
+    this.initActiveTask();
+    this.initActiveFilter();
     this.taskList = mockTaskList
     this.renderer.listen('body', 'scroll', () => {
       if (document.body.scrollTop >= 50) this.floatHeader = true;
@@ -124,6 +143,6 @@ export class AppComponent {
   closeModal(): void {
     this.modalMode = 'closed'
     this.activeTaskIndex = undefined
-    this.initForm();
+    this.initActiveTask();
   }
 }
