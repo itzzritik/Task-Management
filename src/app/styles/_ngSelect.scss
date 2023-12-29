@@ -43,12 +43,7 @@
 }
 
 .modalButton {
-  .button {
-    background: var(--colorBackgroundTertiary) !important;
-  }
-
   &.danger {
-
     .button {
       --rippleColor: var(--colorAlertErrorRGB);
       background: rgb(var(--colorAlertErrorRGB) / 0.2) !important;

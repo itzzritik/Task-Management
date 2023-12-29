@@ -1,9 +1,25 @@
 <main class="main">
-  <header class="header">
+  <header class="header" [class]="floatHeader ? 'float' : ''">
     <p>Task Management</p>
     <app-button label="New Task" icon="2b" (onClick)="onNewTask()" />
   </header>
-  <app-modal *ngIf="modalMode !== 'closed'" [activeTask]="activeTask" [modalMode]="modalMode" (onSubmit)="onSubmit()" (onClose)="closeModal()" />
+  <section class="tasks">
+    <div class="task" *ngFor="let task of taskList; let i = index" (click)="onEditTask(task, i)">
+      <app-icon [code]="getTaskIcon(task.type)" type="solid" />
+      <p>{{ task.title }}</p>
+      <p>{{ task.assigned }}</p>
+      <p>{{ task.desc }}</p>
+      <p>{{ task?.fromDate }}</p>
+      <p>{{ task?.toDate }}</p>
+    </div>
+  </section>
+  <app-modal
+    *ngIf="modalMode !== 'closed'"
+    [activeTask]="activeTask"
+    [modalMode]="modalMode"
+    (onSubmit)="onSubmit()"
+    (onClose)="closeModal()"
+  />
 </main>
 
 <router-outlet></router-outlet>

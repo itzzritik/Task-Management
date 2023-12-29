@@ -4,9 +4,11 @@
 	--rippleShadowColor: var(--colorBackgroundTertiary);
 	--rippleSize: 30px 15px;
 
+  position: relative;
 	border-radius: inherit;
 	box-shadow: 0 0 var(--rippleSize) rgb(var(--rippleColor) / 0%);
 	transition: box-shadow var(--rippleDuration) linear;
+  cursor: pointer;
 
 	&::before {
 		content: '';

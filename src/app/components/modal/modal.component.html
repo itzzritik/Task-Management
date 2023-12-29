@@ -46,6 +46,19 @@
         </div>
       </div>
 
+      <div>
+        <div
+          class="textfield"
+          [class]="activeTask.get('assigned')?.value ? 'hasValue' : ''"
+        >
+          <input formControlName="assigned" type="text" />
+          <p class="placeholder">Assigned To</p>
+        </div>
+        <div class="alertText" *ngIf="isValidField('assigned')">
+          Assigned to field is Required (3-100)
+        </div>
+      </div>
+
       <div *ngIf="activeTask.get('type')?.value !== 'general'">
         <div
           class="textfield hasValue">
