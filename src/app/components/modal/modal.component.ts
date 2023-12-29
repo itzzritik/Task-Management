@@ -2,14 +2,15 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ButtonComponent } from '../button/button.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MODAL_MODE, TASK_TYPE } from '../../../utils/types';
+import { MODAL_MODE, TASK_ICON, TASK_TYPE } from '../../../utils/types';
 import startCase from 'lodash/startCase';
 import { CommonModule } from '@angular/common';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
   selector: 'app-modal',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ButtonComponent, NgSelectModule],
+  imports: [CommonModule, ReactiveFormsModule, IconComponent, ButtonComponent, NgSelectModule],
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
 })
@@ -33,6 +34,9 @@ export class ModalComponent {
     { value: TASK_TYPE.event, label: startCase(TASK_TYPE.event) },
   ];
 
+  getTaskIcon (type: keyof typeof TASK_TYPE) {
+    return TASK_ICON[type]
+  }
   getTitle() {
     return this.title[this.activeTask.get('type')?.value as keyof typeof TASK_TYPE ] ?? 'Task'
   }

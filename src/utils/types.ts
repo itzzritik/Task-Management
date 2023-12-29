@@ -20,7 +20,7 @@ export type TASK = {
 }
 
 export const TASK_ICON = {
-  [TASK_TYPE.general]: 'e472',
-  [TASK_TYPE.meeting]: 'e5e2',
-  [TASK_TYPE.event]: 'f736'
+  [TASK_TYPE.general]: 'e1ff',
+  [TASK_TYPE.meeting]: 'f0c0',
+  [TASK_TYPE.event]: 'f073'
 }

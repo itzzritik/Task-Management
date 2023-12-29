@@ -14,3 +14,10 @@ $fontAwesomeCDN: 'https://raw.githubusercontent.com/itzzjarvis/Assets/main/fonts
 	font-display: block;
 	src: url('#{$fontAwesomeCDN}/fa-solid-900.woff2') format('woff2');
 }
+@font-face {
+	font-family: FontAwesomeDuotone;
+	font-style: normal;
+	font-weight: 900;
+	font-display: block;
+	src: url('#{$fontAwesomeCDN}/fa-duotone-900.woff2') format('woff2');
+}

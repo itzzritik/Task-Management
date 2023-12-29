@@ -5,12 +5,12 @@
   </header>
   <section class="tasks">
     <div class="task" *ngFor="let task of taskList; let i = index" (click)="onEditTask(task, i)">
-      <app-icon [code]="getTaskIcon(task.type)" type="solid" />
+      <app-icon class="taskIcon" [code]="getTaskIcon(task.type)" type="duotone" />
       <p>{{ task.title }}</p>
       <p>{{ task.assigned }}</p>
       <p>{{ task.desc }}</p>
-      <p>{{ task?.fromDate }}</p>
-      <p>{{ task?.toDate }}</p>
+      <p>{{ getReadableDate(task?.fromDate) }}</p>
+      <p>{{ getReadableDate(task?.toDate) }}</p>
     </div>
   </section>
   <app-modal

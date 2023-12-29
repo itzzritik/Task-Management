@@ -16,3 +16,17 @@ export const getDefaultEventTime = (): [string, string] => {
 
   return [formattedDate, formattedNextTime];
 };
+
+export const readableDate = (inputDateTime?: string) => {
+  if (!inputDateTime) return;
+  const date = new Date(inputDateTime);
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
+  };
+  return new Intl.DateTimeFormat('en-US', options).format(date);
+};

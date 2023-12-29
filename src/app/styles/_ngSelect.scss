@@ -54,3 +54,20 @@
     }
   }
 }
+
+.modalIcon .icon {
+  font-size: 24px !important;
+}
+.taskIcon {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  background: rgb(var(--colorBrandAccentRgb) / 50%);
+  border-radius: 9999px;
+
+  .icon {
+    font-size: 20px !important;
+  }
+}

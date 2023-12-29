@@ -10,7 +10,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MODAL_MODE, TASK, TASK_ICON, TASK_TYPE } from '../utils/types';
-import { getDefaultEventTime } from '../utils/date';
+import { getDefaultEventTime, readableDate } from '../utils/date';
 import { mockTaskList } from '../utils/mockData';
 import { IconComponent } from './components/icon/icon.component';
 
@@ -55,6 +55,9 @@ export class AppComponent {
 
   getTaskIcon (type: keyof typeof TASK_TYPE) {
     return TASK_ICON[type]
+  }
+  getReadableDate (date?: string) {
+    return readableDate(date)
   }
 
   onNewTask(): void {

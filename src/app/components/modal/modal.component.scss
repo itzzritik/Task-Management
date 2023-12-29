@@ -35,9 +35,8 @@
     .header {
       width: 100%;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 48px 24px 24px 24px;
+      padding: 48px 24px 24px 42px;
 
       p {
         font-size: 24px;
@@ -45,6 +44,8 @@
 			  font-variation-settings: "wdth" 75, "wght" 300;
         margin: 0;
         user-select: none;
+        margin-right: auto;
+        margin-left: 24px;
       }
     }
 
