@@ -3,9 +3,9 @@ import { ButtonComponent } from '../button/button.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MODAL_MODE, TASK_ICON, TASK_TYPE } from '../../../utils/types';
-import startCase from 'lodash/startCase';
 import { CommonModule } from '@angular/common';
 import { IconComponent } from '../icon/icon.component';
+import { startCase } from 'lodash';
 
 @Component({
   selector: 'app-modal',

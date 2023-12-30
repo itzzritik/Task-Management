@@ -14,12 +14,11 @@ import { FILTER, MODAL_MODE, SORT_MODE, TASK, TASK_ICON, TASK_TYPE } from '../ut
 import { getDefaultEventTime, readableDate } from '../utils/date';
 import { mockTaskList } from '../utils/mockData';
 import { IconComponent } from './components/icon/icon.component';
-import cloneDeep from 'lodash/cloneDeep';
-import startCase from 'lodash/startCase';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { nanoid } from 'nanoid';
+import { cloneDeep, startCase } from 'lodash';
 
 @Component({
   selector: 'app-root',
