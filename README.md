@@ -1,27 +1,42 @@
-# TaskManagement
+# Task Management Application
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.8.
+A Task Management Application built with Angular, utilizing RxJS and Reactive Forms. This application allows users to manage various types of tasks dynamically and efficiently.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### Task Creation
 
-## Code scaffolding
+- Dynamic rendering of task fields based on task type selection (General/Meeting/Event)
+- Common task title field across all task types
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Task Update
 
-## Build
+- Editing task details such as description or due date
+- Primary task fields disabled for editing when appropriate
+- Viewing tasks in a list format for easy reference
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Sorting and Filtering
 
-## Running unit tests
+- Sorting tasks based on creation or edit date
+- Filtering tasks based on any task fields
+- Retaining filters and sorting order on page refresh
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Installation
 
-## Running end-to-end tests
+1. Clone the repository
+2. Install dependencies: `yarn install`
+3. Run the application: `yarn start`
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Usage
 
-## Further help
+1. Select task type (General/Meeting/Event) to add a new task.
+2. Fill in the relevant task fields based on the selected type.
+3. Edit tasks by modifying description, due date, etc.
+4. View and manage tasks in the list view.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Technologies Used
+
+- [Angular](https://angular.io/)
+- [RxJS](https://angular.io/guide/rx-library)
+- [Reactive Forms](https://angular.io/guide/reactive-forms)
+- [XtremeUI (Developed and maintained by me)](https://github.com/itzzritik/XtremeUI)
