@@ -135,8 +135,9 @@ export class AppComponent {
   ngOnInit(): void {
     this.initActiveTask();
     this.initActiveFilter();
+
     this.renderer.listen('body', 'scroll', () => {
-      if (document.body.scrollTop >= 36) this.floatHeader = true;
+      if (document.body.scrollTop >= 24) this.floatHeader = true;
       else this.floatHeader = false;
     });
 

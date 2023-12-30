@@ -161,15 +161,15 @@
 }
 .taskIcon {
   display: flex;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   justify-content: center;
   align-items: center;
   background: rgb(var(--colorBrandAccentRgb) / 50%);
   border-radius: 9999px;
 
   .icon {
-    font-size: 20px !important;
+    font-size: 24px !important;
   }
 }
 
@@ -177,5 +177,65 @@
   .ng-select-container {
     padding: 9px 8px !important;
     box-shadow: 0 0 0 1px var(--colorBackgroundTertiary) !important;
+  }
+}
+
+.newTask {
+  position: fixed;
+  right: 36px;
+  bottom: 36px;
+  z-index: 4;
+
+  .button {
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0 0 0 0;
+      border-radius: 9999px;
+      transition: all 0.2s ease-out;
+      background: rgb(var(--colorBrandAccentRgb) / 80%);
+    }
+
+    div {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.2s ease-out !important;
+
+      > .icon {
+        margin: 0 !important;
+
+        i {
+          font-size: 20px;
+          color: white;
+        }
+      }
+
+      > span {
+        display: none;
+        height: 18px;
+        overflow: hidden;
+        font-size: 14px;
+        color: white;
+        white-space: nowrap;
+        transition: all 0.2s ease-out !important;
+      }
+    }
+
+    &:hover {
+      div {
+        width: 160px;
+
+        > .icon {
+          margin-right: 12px !important;
+        }
+
+        > span {
+          display: flex;
+        }
+      }
+    }
   }
 }

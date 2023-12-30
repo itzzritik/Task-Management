@@ -13,7 +13,6 @@
         [ngModel]="sortMode | async"
         (ngModelChange)="updateSortMode($event)"
       />
-      <app-button label="New Task" icon="2b" (onClick)="onNewTask()" />
     </div>
     <div *ngIf="showFilter" class="backdrop" (click)="closeFilter()"></div>
     <div *ngIf="showFilter" class="filterModal">
@@ -87,15 +86,23 @@
         </div>
       </form>
     </div>
+    <div class="taskHeader">
+      <p>Type</p>
+      <p>Title</p>
+      <p>Assigned To</p>
+      <p>Description</p>
+      <p>Start Date</p>
+      <p>End Date</p>
+    </div>
   </header>
   <section class="tasks">
     <div class="task" *ngFor="let task of filteredTaskList | async" [class]="task.id === activeTaskId ? 'active' : ''" (click)="onEditTask(task, task.id)">
-      <app-icon class="taskIcon" [code]="getTaskIcon(task.type)" type="duotone" />
+      <app-icon class="taskIcon" [title]="task.type" [code]="getTaskIcon(task.type)" type="duotone" />
       <p>{{ task.title }}</p>
       <p>{{ task.assigned }}</p>
       <p>{{ task.desc }}</p>
-      <p>{{ getReadableDate(task?.fromDate) }}</p>
-      <p>{{ getReadableDate(task?.toDate) }}</p>
+      <p>{{ getReadableDate(task?.fromDate) ?? '-' }}</p>
+      <p>{{ getReadableDate(task?.toDate) ?? '-' }}</p>
     </div>
   </section>
   <app-modal
@@ -106,6 +113,7 @@
     (onClose)="closeModal()"
     (onDelete)="onDelete()"
   />
+  <app-button class="newTask" label="New Task" icon="2b" (onClick)="onNewTask()" />
   <div *ngIf="loading" class="loading">
     <span></span>
   </div>

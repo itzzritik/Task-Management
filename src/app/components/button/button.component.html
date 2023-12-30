@@ -6,7 +6,7 @@
   (click)="onClickEvent()"
 >
   <div>
-    <app-icon *ngIf="!!icon" [code]="icon" [type]="iconType" />
+    <app-icon *ngIf="!!icon" class="icon" [code]="icon" [type]="iconType" />
     <span *ngIf="!!label">{{ label }}</span>
   </div>
 </button>

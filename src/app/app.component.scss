@@ -51,7 +51,7 @@
     .filterModal {
       position: absolute;
       right: 48px;
-      bottom: -445px;
+      bottom: -372px;
       width: 600px;
       display: flex;
       flex-direction: column;
@@ -112,11 +112,39 @@
       }
     }
 
+    > .taskHeader {
+      position: relative;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 60px 1fr 0.9fr 1.8fr 0.8fr 0.8fr;
+      gap: 16px;
+      padding: 8px 72px;
+      margin-top: 24px;
+      transition: all 0.3s ease-out;
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0 48px 0 48px;
+        border: 1px solid var(--colorBackgroundTertiary);
+        background-color: var(--colorBackgroundSecondary);
+        border-radius: 8px;
+        opacity: 0.98;
+        z-index: -1;
+        transition: all 0.3s ease-out;
+      }
+
+      p {
+        margin: 0;
+        text-transform: uppercase;
+      }
+    }
+
     &.float {
       box-shadow: 0 16px 16px -16px rgb(0 0 0 / 50%);
       .head {
         padding: 24px 48px 24px 48px;
-        background-color: var(--colorBackgroundSecondary);
+        background: var(--colorBackgroundSecondary);
 
         > p {
           font-size: 28px;
@@ -125,7 +153,17 @@
       }
 
       .filterModal {
-        bottom: -453px;
+        bottom: -400px;
+      }
+
+      > .taskHeader {
+        margin-top: 0px;
+        &::before {
+          inset: 0 0 0 0;
+          border-radius: 0px;
+          border: 1px solid transparent;
+          background-color: var(--colorBackgroundTertiary);
+        }
       }
     }
 
@@ -145,17 +183,18 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    padding: 172px 48px 48px 48px;
+    padding: 216px 48px 124px 48px;
 
     .task {
       position: relative;
       width: 100%;
-      padding: 24px;
+      padding: 16px 24px;
       border-radius: 8px;
       border: 1px solid var(--colorBackgroundTertiary);
       background-color: var(--colorBackgroundSecondary);
       display: grid;
-      grid-template-columns: 50px 1fr 1fr 2fr 0.8fr 0.8fr;
+      grid-template-columns: 60px 1fr 0.9fr 1.8fr 0.8fr 0.8fr;
+      align-items: center;
       gap: 16px;
       cursor: pointer;
 
@@ -168,13 +207,13 @@
       }
 
       p {
+        position: relative;
+        height: fit-content;
         margin: 0;
         text-overflow: ellipsis;
-        text-wrap: nowrap;
+        white-space: nowrap;
         overflow: hidden;
-        display: flex;
-        align-items: center;
-        font-variation-settings: "wdth" 75, "wght" 400;
+        font-variation-settings: "wdth" 75, "wght" 300;
       }
 
       &:hover {
