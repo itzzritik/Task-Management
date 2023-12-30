@@ -89,7 +89,7 @@
     </div>
   </header>
   <section class="tasks">
-    <div class="task" *ngFor="let task of filteredTaskList | async; let i = index" (click)="onEditTask(task, i)">
+    <div class="task" *ngFor="let task of filteredTaskList | async" [class]="task.id === activeTaskId ? 'active' : ''" (click)="onEditTask(task, task.id)">
       <app-icon class="taskIcon" [code]="getTaskIcon(task.type)" type="duotone" />
       <p>{{ task.title }}</p>
       <p>{{ task.assigned }}</p>
@@ -104,6 +104,7 @@
     [modalMode]="modalMode"
     (onSubmit)="onSubmit()"
     (onClose)="closeModal()"
+    (onDelete)="onDelete()"
   />
   <div *ngIf="loading" class="loading">
     <span></span>

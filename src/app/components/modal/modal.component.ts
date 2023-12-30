@@ -20,6 +20,7 @@ export class ModalComponent {
   @Input() modalMode: keyof typeof MODAL_MODE = 'closed';
   @Output() onClose = new EventEmitter();
   @Output() onSubmit = new EventEmitter();
+  @Output() onDelete = new EventEmitter();
 
   closing: boolean = false;
   title = {
@@ -53,5 +54,8 @@ export class ModalComponent {
   }
   onSubmitEvent() {
     this.onSubmit.emit()
+  }
+  onDeleteEvent() {
+    this.onDelete.emit()
   }
 }

@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid';
 import { getRandomDateFromPastMonth } from './date';
 import { TASK } from './types';
 
@@ -275,6 +276,8 @@ export const mockTaskList = [
 ] as TASK[];
 
 mockTaskList.forEach((task) => {
+  // @ts-ignore
+  task.id = nanoid();
   // @ts-ignore
   task.createDate = getRandomDateFromPastMonth();
   // @ts-ignore

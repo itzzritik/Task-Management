@@ -19,6 +19,7 @@ import startCase from 'lodash/startCase';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { nanoid } from 'nanoid';
 
 @Component({
   selector: 'app-root',
@@ -35,7 +36,7 @@ export class AppComponent {
   filter = new BehaviorSubject<FILTER>({});
   sortMode = new BehaviorSubject<number>(0);
 
-  activeTaskIndex?: number;
+  activeTaskId?: string;
   loading: boolean = true;
   floatHeader: boolean = false;
   showFilter: boolean = false;
@@ -43,10 +44,11 @@ export class AppComponent {
   modalMode: keyof typeof MODAL_MODE = 'closed';
   defaultTime = getDefaultEventTime();
 
-  taskList = new BehaviorSubject<TASK[]>(mockTaskList)
+  taskList = new BehaviorSubject<TASK[]>([])
   filteredTaskList = combineLatest([this.taskList, this.filter, this.sortMode]).pipe(
-    map(([items, filter, sortMode]) => {
+    map(([items, filterData, sortMode]) => {
       let clone = cloneDeep(items)
+      let filter = cloneDeep(filterData)
 
       if (filter?.type?.length) {
         clone = clone.filter((v) => filter?.type?.includes(v?.type))
@@ -86,9 +88,11 @@ export class AppComponent {
   );
   AssignedUsers = combineLatest([this.taskList]).pipe(
     map(([items]) => {
-      return [...new Set(items.map((task) => task.assigned))].map((user) => ({
+      const users = [...new Set(items.map((task) => task.assigned))].map((user) => ({
         value: user, label: startCase(user)
-      }));
+      }))
+      users.sort((a, b) => a.label.localeCompare(b.label));
+      return users;
     })
   );
 
@@ -136,26 +140,39 @@ export class AppComponent {
       else this.floatHeader = false;
     });
 
-    try {
-      const localFilter = localStorage.getItem('filter');
-      const localSortMode = localStorage.getItem('sortMode');
-      if (localFilter) this.filter.next(JSON.parse(localFilter));
-      if (localSortMode) this.sortMode.next(parseInt(localSortMode));
-    }
-    catch (e) { }
-    finally {
-      setTimeout(() => {
-        this.loading = false;
-      }, 500);
-    }
+    if (typeof localStorage !== 'undefined') {
+      try {
+        const localFilter = localStorage.getItem('filter');
+        if (localFilter) this.filter.next(JSON.parse(localFilter));
 
-    this.sortMode.subscribe(sortMode => {
-      localStorage.setItem('sortMode', JSON.stringify(sortMode));
-    });
+        const localSortMode = localStorage.getItem('sortMode');
+        if (localSortMode) this.sortMode.next(parseInt(localSortMode));
 
-    this.filter.subscribe(filter => {
-      localStorage.setItem('filter', JSON.stringify(filter));
-    });
+        const localTaskList = JSON.parse(localStorage.getItem('taskList') ?? '[]');
+        if (localTaskList?.length) this.taskList.next(localTaskList);
+        else this.taskList.next(mockTaskList);
+      }
+      catch (e) { }
+      finally {
+        setTimeout(() => {
+          this.loading = false;
+        }, 500);
+      }
+
+
+
+      this.sortMode.subscribe(sortMode => {
+        localStorage.setItem('sortMode', JSON.stringify(sortMode));
+      });
+
+      this.filter.subscribe(filter => {
+        localStorage.setItem('filter', JSON.stringify(filter));
+      });
+
+      this.taskList.subscribe(taskList => {
+        localStorage.setItem('taskList', JSON.stringify(taskList));
+      });
+    }
   }
 
   getTaskIcon (type: keyof typeof TASK_TYPE) {
@@ -195,34 +212,49 @@ export class AppComponent {
   onNewTask(): void {
     this.modalMode = 'new'
   }
-  onEditTask(activeTask: TASK, i: number): void {
+  onEditTask(activeTask: TASK, id: string): void {
     this.modalMode = 'edit'
-    this.activeTaskIndex = i;
+    this.activeTaskId = id;
     this.activeTask.patchValue(activeTask);
   }
   onSubmit(): void {
     if (this.modalMode === 'new') {
+      const newId = nanoid();
+      this.activeTaskId = newId;
       this.taskList.next([
         {
+          id: newId,
           ...this.activeTask.value,
           createDate: new Date().toISOString(),
           updateDate: new Date().toISOString(),
         },
         ...this.taskList.getValue(),
       ]);
-    } else if (this.modalMode === 'edit' && this.activeTaskIndex != undefined) {
-      const list = this.taskList.getValue()
-      list[this.activeTaskIndex] = {
-        ...this.activeTask.value,
-        updateDate: new Date().toISOString(),
-      };
+    } else if (this.modalMode === 'edit' && this.activeTaskId != undefined) {
+      let list = this.taskList.getValue()
+      list = list.map((l) => {
+        if (l.id === this.activeTaskId) return {
+          ...l,
+          ...this.activeTask.value,
+          updateDate: new Date().toISOString(),
+        }
+        return l;
+      })
+      this.taskList.next(list)
+    }
+    this.closeModal(true);
+  }
+  onDelete(): void {
+    if (this.modalMode === 'edit' && this.activeTaskId != undefined) {
+      let list = this.taskList.getValue()
+      list = list.filter(({id}) => id != this.activeTaskId)
       this.taskList.next(list)
     }
     this.closeModal();
   }
-  closeModal(): void {
+  closeModal(delay?: boolean): void {
     this.modalMode = 'closed'
-    this.activeTaskIndex = undefined
     this.initActiveTask();
+    setTimeout(() => (this.activeTaskId = undefined), delay ? 1000 : 0)
   }
 }

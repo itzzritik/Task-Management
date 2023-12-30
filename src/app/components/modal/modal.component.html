@@ -83,7 +83,7 @@
       </div>
 
       <div class="controls" [class]="modalMode">
-        <app-button *ngIf="modalMode === 'edit'" class="modalButton danger" icon="e2b4" label="Delete" (onClick)="onCloseEvent()" [disabled]="closing" />
+        <app-button *ngIf="modalMode === 'edit'" class="modalButton danger" icon="e2b4" label="Delete" (onClick)="onDeleteEvent()" [disabled]="closing" />
         <app-button class="modalButton" type="submit" icon="f00c" [label]="modalMode === 'new' ? 'Create' : 'Update'"  [disabled]="!activeTask.valid" />
       </div>
     </form>

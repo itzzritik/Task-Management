@@ -159,6 +159,14 @@
       gap: 16px;
       cursor: pointer;
 
+      &::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 0 0;
+        border-radius: 8px;
+        transition: all 0.2s ease-out;
+      }
+
       p {
         margin: 0;
         text-overflow: ellipsis;
@@ -167,6 +175,18 @@
         display: flex;
         align-items: center;
         font-variation-settings: "wdth" 75, "wght" 400;
+      }
+
+      &:hover {
+        &::before {
+          background: rgb(var(--colorBrandAccentRgb) / 0.1);
+        }
+      }
+
+      &.active {
+        &::before {
+          background: rgb(var(--colorBrandAccentRgb) / 0.3);
+        }
       }
     }
   }
@@ -216,14 +236,26 @@
   }
 }
 @keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 @keyframes fadeOut {
-  0% { opacity: 1; }
-  100% { opacity: 0; }
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 @keyframes spinner {
-  0% { rotate: 0deg; }
-  100% { rotate: 180deg; }
+  0% {
+    rotate: 0deg;
+  }
+  100% {
+    rotate: 180deg;
+  }
 }

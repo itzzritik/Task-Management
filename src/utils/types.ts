@@ -18,6 +18,7 @@ export enum SORT_MODE {
 }
 
 export type TASK = {
+  id: string,
   type: keyof typeof TASK_TYPE,
   title: string,
   desc: string,
