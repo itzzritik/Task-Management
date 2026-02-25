@@ -3,16 +3,15 @@ import { ButtonComponent } from '../button/button.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MODAL_MODE, TASK_ICON, TASK_TYPE } from '../../../utils/types';
-import { CommonModule } from '@angular/common';
+
 import { IconComponent } from '../icon/icon.component';
 import { startCase } from 'lodash';
 
 @Component({
-  selector: 'app-modal',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, IconComponent, ButtonComponent, NgSelectModule],
-  templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss'],
+    selector: 'app-modal',
+    imports: [ReactiveFormsModule, IconComponent, ButtonComponent, NgSelectModule],
+    templateUrl: './modal.component.html',
+    styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent {
   // @ts-ignore

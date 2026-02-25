@@ -4,9 +4,13 @@
   [disabled]="disabled"
   [type]="type"
   (click)="onClickEvent()"
->
+  >
   <div>
-    <app-icon *ngIf="!!icon" class="icon" [code]="icon" [type]="iconType" />
-    <span *ngIf="!!label">{{ label }}</span>
+    @if (!!icon) {
+      <app-icon class="icon" [code]="icon" [type]="iconType" />
+    }
+    @if (!!label) {
+      <span>{{ label }}</span>
+    }
   </div>
 </button>

@@ -1,12 +1,12 @@
 @use "sass:list";
+@use "./app/styles/colors" as *;
+@use "./app/styles/select";
+@use "./app/styles/shadowRipple";
+@use "./app/styles/textfield";
 
 @import "https://fonts.googleapis.com/css2?family=Montserrat:wght@100..700&display=swap";
 @import url('https://cdn.jsdelivr.net/gh/itzzjarvis/Assets@main/styles/fa/fa.css');
 @import "@ng-select/ng-select/themes/default.theme.css";
-@import "./app/styles/_colors.scss";
-@import "./app/styles/_select.scss";
-@import "./app/styles/_shadowRipple.scss";
-@import "./app/styles/_textfield.scss";
 
 html {
   @include systemScheme;

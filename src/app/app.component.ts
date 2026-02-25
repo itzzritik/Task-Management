@@ -21,11 +21,10 @@ import { nanoid } from 'nanoid';
 import { cloneDeep, startCase } from 'lodash';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
-  imports: [CommonModule, RouterOutlet, IconComponent, ButtonComponent, NgSelectModule, ModalComponent, ReactiveFormsModule, FormsModule ],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss',
+    imports: [CommonModule, RouterOutlet, IconComponent, ButtonComponent, NgSelectModule, ModalComponent, ReactiveFormsModule, FormsModule]
 })
 export class AppComponent {
   // @ts-ignore

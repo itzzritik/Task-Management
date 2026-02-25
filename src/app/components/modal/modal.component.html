@@ -15,75 +15,93 @@
           bindValue="value"
           placeholder="Select task type"
           [readonly]="modalMode === 'edit'"
-        />
-        <div class="alertText" *ngIf="isValidField('type')">
-          Please select a task type.
-        </div>
+          />
+        @if (isValidField('type')) {
+          <div class="alertText">
+            Please select a task type.
+          </div>
+        }
       </div>
 
       <div>
         <div
           class="textfield"
           [class]="activeTask.get('title')?.value ? 'hasValue' : ''"
-        >
+          >
           <input formControlName="title" type="text" />
           <p class="placeholder">Title</p>
         </div>
-        <div class="alertText" *ngIf="isValidField('title')">
-          Task title Required (3-100)
-        </div>
+        @if (isValidField('title')) {
+          <div class="alertText">
+            Task title Required (3-100)
+          </div>
+        }
       </div>
 
       <div>
         <div
           class="textfield textarea"
           [class]="activeTask.get('desc')?.value ? 'hasValue' : ''"
-        >
+          >
           <textarea formControlName="desc" type="text"></textarea>
           <p class="placeholder">Description</p>
         </div>
-        <div class="alertText" *ngIf="isValidField('desc')">
-          Task description Required (15-1000)
-        </div>
+        @if (isValidField('desc')) {
+          <div class="alertText">
+            Task description Required (15-1000)
+          </div>
+        }
       </div>
 
       <div>
         <div
           class="textfield"
           [class]="activeTask.get('assigned')?.value ? 'hasValue' : ''"
-        >
+          >
           <input formControlName="assigned" type="text" />
           <p class="placeholder">Assigned To</p>
         </div>
-        <div class="alertText" *ngIf="isValidField('assigned')">
-          Assigned to field is Required (3-100)
-        </div>
+        @if (isValidField('assigned')) {
+          <div class="alertText">
+            Assigned to field is Required (3-100)
+          </div>
+        }
       </div>
 
-      <div *ngIf="activeTask.get('type')?.value !== 'general'">
-        <div
-          class="textfield hasValue">
-          <input formControlName="fromDate" type="datetime-local" />
-          <p class="placeholder">Start Time</p>
+      @if (activeTask.get('type')?.value !== 'general') {
+        <div>
+          <div
+            class="textfield hasValue">
+            <input formControlName="fromDate" type="datetime-local" />
+            <p class="placeholder">Start Time</p>
+          </div>
+          @if (isValidField('fromDate')) {
+            <div class="alertText">
+              Start Time Required
+            </div>
+          }
         </div>
-        <div class="alertText" *ngIf="isValidField('fromDate')">
-          Start Time Required
-        </div>
-      </div>
+      }
 
-      <div *ngIf="activeTask.get('type')?.value !== 'general'">
-        <div
-          class="textfield hasValue">
-          <input formControlName="toDate" type="datetime-local" />
-          <p class="placeholder">End Time</p>
+      @if (activeTask.get('type')?.value !== 'general') {
+        <div>
+          <div
+            class="textfield hasValue">
+            <input formControlName="toDate" type="datetime-local" />
+            <p class="placeholder">End Time</p>
+          </div>
+          @if (isValidField('toDate')) {
+            <div class="alertText">
+              End Time Required
+            </div>
+          }
         </div>
-        <div class="alertText" *ngIf="isValidField('toDate')">
-          End Time Required
-        </div>
-      </div>
+      }
 
       <div class="controls" [class]="modalMode">
-        <app-button *ngIf="modalMode === 'edit'" class="modalButton danger" icon="e2b4" label="Delete" (onClick)="onDeleteEvent()" [disabled]="closing" />
+        @if (modalMode === 'edit') {
+          <app-button class="modalButton danger" icon="e2b4" label="Delete" (onClick)="onDeleteEvent()" [disabled]="closing" />
+        }
         <app-button class="modalButton" type="submit" icon="f00c" [label]="modalMode === 'new' ? 'Create' : 'Update'"  [disabled]="!activeTask.valid" />
       </div>
     </form>

@@ -2,11 +2,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { unicodeToString } from '../../../utils/string';
 
 @Component({
-  selector: 'app-icon',
-  standalone: true,
-  imports: [],
-  templateUrl: './icon.component.html',
-  styleUrl: './icon.component.scss'
+    selector: 'app-icon',
+    imports: [],
+    templateUrl: './icon.component.html',
+    styleUrl: './icon.component.scss'
 })
 export class IconComponent {
   @Input({
