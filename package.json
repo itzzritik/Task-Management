@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:TaskManagement": "node dist/task-management/server/server.mjs"
+    "serve:ssr:TaskManagement": "node dist/task-management/server/server.mjs",
+    "clean": "rm -rf node_modules pnpm-lock.yaml dist && pnpm install"
   },
   "private": true,
   "dependencies": {
